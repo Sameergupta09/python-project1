@@ -1,0 +1,42 @@
+Key Features:
+Levels with Increasing Difficulty:
+
+The game starts at level 1 with a 3x3 grid and 1 mine. As the levels progress, both the grid size and the number of mines increase. The game progresses up to level 5 with a 7x7 grid and 5 mines.
+Colorful and Responsive UI:
+
+The background colors for the window, buttons, and revealed cells are chosen for a visually pleasing experience:
+Alice Blue for the main window background.
+Lavender for cells that show the number of surrounding mines.
+Light Cyan for revealed empty cells.
+Red for mines when the game is over.
+Flagging and Revealing Mechanism:
+
+Players can right-click to place a flag on suspected mines (displayed as a red flag on a light yellow background).
+Left-click reveals the contents of a cell, showing the number of surrounding mines or triggering the end of the game if a mine is clicked.
+End Game Alerts:
+
+The game displays a message when the player hits a mine or completes a level. It either moves to the next level or shows a congratulatory message when all levels are completed.
+Centered Text:
+
+The numbers indicating nearby mines are centered within their respective buttons, ensuring clarity.
+The Game Loop:
+Initialization (__init__):
+
+Sets up the game board based on the current level.
+Initializes variables like the number of mines and grid size.
+UI Setup (setup_ui):
+
+Configures the main game window and game board.
+Places the buttons on the grid and assigns commands for click events.
+Mine Placement (place_mines):
+
+Randomly assigns mines to cells on the grid.
+Click Handlers (on_click, on_right_click):
+
+Handles both left-click (to reveal cells) and right-click (to place/remove flags) events.
+Revealing and Counting (reveal, count_mines_around):
+
+Reveals cells recursively if they have no adjacent mines and counts how many mines are around each revealed cell.
+End Conditions (check_win, game_over, win_game):
+
+Checks if the player has won or lost and responds appropriately.
