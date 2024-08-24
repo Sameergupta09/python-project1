@@ -6,8 +6,8 @@ class Minesweeper:
     def __init__(self, root, level=1):
         self.root = root
         self.level = level
-        self.size = 2 + level  # Level 1: 3x3 grid, Level 2: 4x4, ..., Level 5: 7x7
-        self.mines = level  # Level 1: 1 mine, Level 2: 2 mines, ..., Level 5: 5 mines
+        self.size = 2 + level  # Level 1: 3x3 grid, Level 2: 4x4, ...
+        self.mines =  level  # Level 1: 1 mine, Level 2: 2 mines, ...
         self.mines_remaining = self.mines
         self.buttons = {}
         self.mines_locations = []
@@ -18,9 +18,9 @@ class Minesweeper:
         self.setup_ui()
 
     def setup_ui(self):
-        self.root.configure(bg='#F0F8FF')  # Alice Blue background for a light, clean look
+        self.root.configure(bg='#F0F8FF')  
         self.root.title(f'Minesweeper - Level {self.level}')
-        self.root.geometry(f'{self.size * 80}x{self.size * 80 + 70}')
+        self.root.geometry(f'{self.size * 150}x{self.size * 150 + 70}')
         
         # Status Bar
         self.status_bar = tk.Label(self.root, text=f'Mines: {self.mines_remaining}', 
@@ -33,7 +33,7 @@ class Minesweeper:
 
         for row in range(self.size):
             for col in range(self.size):
-                btn = tk.Button(board_frame, width=5, height=2, font=('Arial', 14, 'bold'), 
+                btn = tk.Button(board_frame, width=7, height=4, font=('Arial', 14, 'bold'), 
                                 bg='#F0F0F0', anchor='center', command=lambda r=row, c=col: self.on_click(r, c))
                 btn.bind("<Button-3>", lambda e, r=row, c=col: self.on_right_click(r, c))
                 btn.grid(row=row, column=col, padx=3, pady=3)
@@ -61,10 +61,10 @@ class Minesweeper:
     def on_right_click(self, row, col):
         btn = self.buttons[(row, col)]
         if btn["text"] == "":
-            btn.config(text="🚩", fg="red", bg='#FFFACD')  # Light Yellow when flagged
+            btn.config(text="🚩", fg="red", bg='#FFFACD')  
             self.mines_remaining -= 1
         elif btn["text"] == "🚩":
-            btn.config(text="", bg='#ADD8E6')  # Reset to Light Blue when unflagged
+            btn.config(text="", bg='#ADD8E6')  
             self.mines_remaining += 1
         self.update_status()
 
@@ -72,7 +72,7 @@ class Minesweeper:
         if self.buttons[(row, col)]["state"] == "disabled":
             return
 
-        self.buttons[(row, col)].config(state="disabled", relief=tk.SUNKEN, bg='#E0FFFF')  # Light Cyan for revealed cells
+        self.buttons[(row, col)].config(state="disabled", relief=tk.SUNKEN, bg='#E0FFFF')  
         mines_around = self.count_mines_around(row, col)
 
         if mines_around == 0:
@@ -81,7 +81,7 @@ class Minesweeper:
                     if (r, c) != (row, col):
                         self.reveal(r, c)
         else:
-            self.buttons[(row, col)].config(text=str(mines_around), fg=self.colors[mines_around], bg='#E6E6FA')  # Lavender for numbers
+            self.buttons[(row, col)].config(text=str(mines_around), fg=self.colors[mines_around], bg='#E6E6FA')  
 
     def count_mines_around(self, row, col):
         count = 0
@@ -100,7 +100,7 @@ class Minesweeper:
 
     def game_over(self):
         for row, col in self.mines_locations:
-            self.buttons[(row, col)].config(text="💣", fg="white", bg="red")  # Red background for mines when game over
+            self.buttons[(row, col)].config(text="💣", fg="white", bg="red")  
         messagebox.showinfo("Game Over", "You hit a mine! Game over!")
         self.root.destroy()
 
